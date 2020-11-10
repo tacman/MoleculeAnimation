@@ -12,7 +12,9 @@ public class GameController : MonoBehaviour {
     // Use this for initialization
 	void Start () {
 		Hydrogen go;
-		for (var i =0; i<maxMolecules; i++) {
+		for (var i =0; i<maxMolecules; i++)
+		{
+			Debug.Log(i);
 			go = Instantiate(
 				hydrogenPrefab,
 				new Vector3(Random.Range(-9.0f, 9.0f), Random.Range(-9.0f, 9.0f), Random.Range(-9.0f, 9.0f)),

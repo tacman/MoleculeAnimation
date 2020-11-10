@@ -40,9 +40,17 @@ public class Hydrogen : MonoBehaviour {
 
             if (otherHydrogen._partner == null) // two free radicals meet and form covalent bond
             {
-                BondingParticleSystem.Play();
+                if (BondingParticleSystem != null)
+                {
+                    BondingParticleSystem.transform.position = other.transform.position;
+                    BondingParticleSystem.Play();
+                }
                 _partner = other.gameObject;
                 otherHydrogen._partner = this.gameObject;
+                
+                //Get the Renderer component from the new cube
+                gameObject.GetComponent<Renderer>().material.SetColor("_Color", Color.green);
+                _partner.GetComponent<Renderer>().material.SetColor("_Color", Color.yellow);
 
                 // chemical bond formation suddenly pulls slightly closer together
                 float deltaX = _partner.transform.position.x - this.transform.position.x;
@@ -76,6 +84,12 @@ public class Hydrogen : MonoBehaviour {
         }
         if (other.gameObject.CompareTag("Wall"))
         {
+            if (WallParticleSystem != null)
+            {
+                WallParticleSystem.transform.position = other.transform.position;
+                WallParticleSystem.Play();
+            }
+
 	        audioSource.PlayOneShot(audioClipBallBounce, 0.25f);
             
         }
