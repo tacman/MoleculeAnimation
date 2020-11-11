@@ -6,79 +6,30 @@ public class GameController : MonoBehaviour {
 
 	public int maxMolecules = 9;
 	public Hydrogen hydrogenPrefab;
-	private List<Hydrogen> hydrogens = new List<Hydrogen>();
+	// do we need this for anything?  
+	// private List<Hydrogen> hydrogens = new List<Hydrogen>();
 	
 
     // Use this for initialization
 	void Start () {
-		Hydrogen go;
 		for (var i =0; i<maxMolecules; i++)
 		{
-			Debug.Log(i);
-			go = Instantiate(
+			// playing area is a hard-coded 10x10x10 box, molecules have a 2x2x2 scale 
+			var go = Instantiate(
 				hydrogenPrefab,
-				new Vector3(Random.Range(-9.0f, 9.0f), Random.Range(-9.0f, 9.0f), Random.Range(-9.0f, 9.0f)),
+				new Vector3(0f, // Random.Range(-9.0f, 9.0f), 
+					9.0f, // Random.Range(-9.0f, 9.0f), 
+					0.0f), // Random.Range(-9.0f, 9.0f)),
 				Quaternion.identity);
-			
+
 			go.GetComponent<Rigidbody>().velocity = new Vector3(
 				Random.Range(-5.0f, 5.0f),
 				Random.Range(-5.0f, 5.0f),
 				Random.Range(-5.0f, 5.0f));
 				
-			hydrogens.Add(go);
+			// hydrogens.Add(go);
 		}
 		
-		
-		return;
-		// @todo:return yield with short delay?
-		
-        hydrogens.Add(Instantiate(
-            hydrogenPrefab,
-            new Vector3(Random.Range(-9.0f, 9.0f), Random.Range(-9.0f, 9.0f), Random.Range(-9.0f, 9.0f)),
-            Quaternion.identity));
-        hydrogens.Add(Instantiate(
-            hydrogenPrefab,
-            new Vector3(Random.Range(-9.0f, 9.0f), Random.Range(-9.0f, 9.0f), Random.Range(-9.0f, 9.0f)),
-            Quaternion.identity));
-        hydrogens.Add(Instantiate(
-            hydrogenPrefab,
-            new Vector3(Random.Range(-9.0f, 9.0f), Random.Range(-9.0f, 9.0f), Random.Range(-9.0f, 9.0f)),
-            Quaternion.identity));
-        hydrogens.Add(Instantiate(
-            hydrogenPrefab,
-            new Vector3(Random.Range(-9.0f, 9.0f), Random.Range(-9.0f, 9.0f), Random.Range(-9.0f, 9.0f)),
-            Quaternion.identity));
-        hydrogens.Add(Instantiate(
-            hydrogenPrefab,
-            new Vector3(Random.Range(-9.0f, 9.0f), Random.Range(-9.0f, 9.0f), Random.Range(-9.0f, 9.0f)),
-            Quaternion.identity));
-        hydrogens.Add(Instantiate(
-            hydrogenPrefab,
-            new Vector3(Random.Range(-9.0f, 9.0f), Random.Range(-9.0f, 9.0f), Random.Range(-9.0f, 9.0f)),
-            Quaternion.identity));
-        hydrogens.Add(Instantiate(
-            hydrogenPrefab,
-            new Vector3(Random.Range(-9.0f, 9.0f), Random.Range(-9.0f, 9.0f), Random.Range(-9.0f, 9.0f)),
-            Quaternion.identity));
-        hydrogens.Add(Instantiate(
-            hydrogenPrefab,
-            new Vector3(Random.Range(-9.0f, 9.0f), Random.Range(-9.0f, 9.0f), Random.Range(-9.0f, 9.0f)),
-            Quaternion.identity));
-        hydrogens.Add(Instantiate(
-            hydrogenPrefab,
-            new Vector3(Random.Range(-9.0f, 9.0f), Random.Range(-9.0f, 9.0f), Random.Range(-9.0f, 9.0f)),
-            Quaternion.identity));
-        foreach (Hydrogen hydrogen in hydrogens)
-        {
-            hydrogen.GetComponent<Rigidbody>().velocity = new Vector3(
-                Random.Range(-5.0f, 5.0f),
-                Random.Range(-5.0f, 5.0f),
-                Random.Range(-5.0f, 5.0f));
-        }
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
 }

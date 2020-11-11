@@ -11,8 +11,9 @@ public class Hydrogen : MonoBehaviour {
 
     private GameObject _partner = null;
     private SpringJoint springJoint;
-
     private Rigidbody rb;
+    
+    private static readonly int _color = Shader.PropertyToID("_Color");
 
     // Use this for initialization
     void Start () {
@@ -35,6 +36,7 @@ public class Hydrogen : MonoBehaviour {
     {
         if (_partner == null && other.gameObject.CompareTag("Hydrogen"))
         {
+            // there are 2 sphere colliders of different radii.  The outer one is bouncy and a trigger, the inner one is for physics.
             Hydrogen otherHydrogen = (Hydrogen)other.gameObject.GetComponent<Hydrogen>();
 
             if (otherHydrogen._partner == null) // two free radicals meet and form covalent bond
@@ -48,17 +50,21 @@ public class Hydrogen : MonoBehaviour {
                 otherHydrogen._partner = this.gameObject;
                 
                 //Get the Renderer component from the new cube
-                gameObject.GetComponent<Renderer>().material.SetColor("_Color", Color.green);
-                _partner.GetComponent<Renderer>().material.SetColor("_Color", Color.yellow);
+                gameObject.GetComponent<Renderer>().material.SetColor(_color, Color.green);
+                _partner.GetComponent<Renderer>().material.SetColor(_color, Color.yellow);
 
                 // chemical bond formation suddenly pulls slightly closer together
-                float deltaX = _partner.transform.position.x - this.transform.position.x;
-                float deltaY = _partner.transform.position.y - this.transform.position.y;
-                float deltaZ = _partner.transform.position.z - this.transform.position.z;
-                this.transform.position = new Vector3(
-                    this.transform.position.x + 0.25f * deltaX,
-                    this.transform.position.y + 0.25f * deltaY,
-                    this.transform.position.z + 0.25f * deltaZ);
+                var transform1 = this.transform;
+                
+                // @todo: there's probably a way to use vector operations to do this.
+                float deltaX = _partner.transform.position.x - transform1.position.x;
+                float deltaY = _partner.transform.position.y - transform1.position.y;
+                float deltaZ = _partner.transform.position.z - transform1.position.z;
+                
+                transform1.position = new Vector3(
+                    transform1.position.x + 0.25f * deltaX,
+                    transform1.position.y + 0.25f * deltaY,
+                    transform1.position.z + 0.25f * deltaZ);
                 _partner.transform.position = new Vector3(
                     _partner.transform.position.x - 0.25f * deltaX,
                     _partner.transform.position.y - 0.25f * deltaY,
@@ -71,6 +77,7 @@ public class Hydrogen : MonoBehaviour {
                 springJoint.connectedBody = other.gameObject.GetComponent<Rigidbody>();
                 springJoint.anchor = new Vector3(0, 0, 0);
                 springJoint.connectedAnchor = new Vector3(0, 0, 0);
+                
                 springJoint.spring = 10;
                 springJoint.minDistance = 0.0f;
                 springJoint.maxDistance = 0.0f;
@@ -81,6 +88,7 @@ public class Hydrogen : MonoBehaviour {
                 springJoint.enablePreprocessing = true;
             }
         }
+        
         if (other.gameObject.CompareTag("Wall"))
         {
             if (WallParticleSystem != null)
@@ -88,6 +96,11 @@ public class Hydrogen : MonoBehaviour {
                 WallParticleSystem.transform.position = other.transform.position;
                 WallParticleSystem.Play();
             }
+            else
+            {
+                Debug.Log("Bumped into a wall, but no particle system.");
+            }
+
 
 	        audioSource.PlayOneShot(audioClipBallBounce, 0.25f);
             
