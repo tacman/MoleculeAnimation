@@ -10,10 +10,9 @@ public class Hydrogen : MonoBehaviour {
     public ParticleSystem BondingParticleSystem;
 
     private GameObject _partner = null;
-    SpringJoint springJoint;
+    private SpringJoint springJoint;
 
-	// just a comment
-    Rigidbody rb;
+    private Rigidbody rb;
 
     // Use this for initialization
     void Start () {
@@ -36,7 +35,7 @@ public class Hydrogen : MonoBehaviour {
     {
         if (_partner == null && other.gameObject.CompareTag("Hydrogen"))
         {
-            Hydrogen otherHydrogen = (Hydrogen)other.gameObject.GetComponent("Hydrogen");
+            Hydrogen otherHydrogen = (Hydrogen)other.gameObject.GetComponent<Hydrogen>();
 
             if (otherHydrogen._partner == null) // two free radicals meet and form covalent bond
             {
