@@ -11,4 +11,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Molecules.unity
     guid: 2a43d44cf65318146adb51970f1f14f0
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.input.settings: {fileID: 11400000, guid: e5735a445f699eb4dba7b2cd159bb059,
+      type: 2}
