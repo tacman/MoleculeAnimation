@@ -41,14 +41,9 @@ public class Hydrogen : MonoBehaviour {
 
             if (otherHydrogen._partner == null) // two free radicals meet and form covalent bond
             {
-<<<<<<< HEAD
                 if (BondingParticleSystem != null)
                 {
                     BondingParticleSystem.transform.position = other.transform.position;
-=======
-                if (BondingParticleSystem)
-                {
->>>>>>> master
                     BondingParticleSystem.Play();
                 }
                 _partner = other.gameObject;
